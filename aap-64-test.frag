@@ -7,7 +7,6 @@ vec4 selected;
 
 void main()
 {
-
     colors[0] = vec4(6. / 255., 6. / 255., 8. / 255., 1.);
     colors[1] = vec4(20. / 255., 16. / 255., 19. / 255., 1.);
     colors[2] = vec4(18. / 255., 32. / 255., 32. / 255., 1.);
@@ -72,6 +71,7 @@ void main()
     colors[61] = vec4(254. / 255., 243. / 255., 192. / 255., 1.);
     colors[62] = vec4(227. / 255., 230. / 255., 255. / 255., 1.);
     colors[63] = vec4(255. / 255., 255. / 255., 255. / 255., 1.);
+
     vec4 color = flixel_texture2D(bitmap, openfl_TextureCoordv);
 
     for (int i = 0; i < 64; i++) {
