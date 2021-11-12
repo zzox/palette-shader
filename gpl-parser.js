@@ -18,21 +18,21 @@ const totalColor = ([r, g, b]) => parseInt(r) + parseInt(g) + parseInt(b)
 const toInt = ([r, g, b]) => parseInt(r) + parseInt(g) * 16 + parseInt(b) * 16 * 16
 
 if (!paletteName || !fileOut) {
-	throw new Error('Usage: `node gpl-parser.js [PALETTE_FILE_NAME] [OUTPUT_FILE_NAME]`')
+    throw new Error('Usage: `node gpl-parser.js [PALETTE_FILE_NAME] [OUTPUT_FILE_NAME]`')
 }
 
 const paletteFile = fs.readFileSync(paletteName, 'utf8')
 fileLines = paletteFile.split('\n')
 if (fileLines[0] !== 'GIMP Palette') {
-	throw new Error('Not A Gimp File?')
+    throw new Error('Not A Gimp File?')
 }
 
 // we use toInt to map in the shader, but the items are sorted by totalColor
 colors = fileLines
-	.filter((line, i) => i && line && line[0] !== '#')
-	.map(str => str.split('\t'))
-	.sort((a, b) => totalColor(a) - totalColor(b))
-	.map((item, i) => `    colors[${i}] = vec4(${item[0]}. / 255., ${item[1]}. / 255., ${item[2]}. / 255., 1.);`)
+    .filter((line, i) => i && line && line[0] !== '#')
+    .map(str => str.split('\t'))
+    .sort((a, b) => totalColor(a) - totalColor(b))
+    .map((item, i) => `    colors[${i}] = vec4(${item[0]}. / 255., ${item[1]}. / 255., ${item[2]}. / 255., 1.);`)
 
 const filePrefix =
 `#pragma header
@@ -47,7 +47,6 @@ void main()
 `
 
 const filePostFix = `
-
     vec4 color = flixel_texture2D(bitmap, openfl_TextureCoordv);
 
     for (int i = 0; i < ${colors.length}; i++) {
